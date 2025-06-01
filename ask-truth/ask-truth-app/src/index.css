@@ -1,0 +1,94 @@
+@import "tailwindcss";
+
+/* --- Global Styles & Custom Properties --- */
+:root {
+  /* Define font families */
+  --font-family-title: 'Cinzel Decorative', serif;
+  --font-family-body: 'Lato', sans-serif;
+
+  /* Dark theme colors */
+  --color-background-dark: #1a202c; /* Very dark desaturated blue */
+  --color-text-dark: #e2e8f0;      /* Light gray - almost white */
+  --color-primary-accent: #fde047; /* Yellow accent */
+  --color-secondary-accent: #818cf8; /* Indigo accent */
+
+  font-family: var(--font-family-body);
+  line-height: 1.6;
+  font-weight: 400;
+
+  color-scheme: dark;
+  color: var(--color-text-dark);
+  background-color: var(--color-background-dark);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-family-body);
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: var(--color-background-dark);
+  color: var(--color-text-dark);
+}
+
+/* Custom utility class for title font */
+.font-title {
+  font-family: var(--font-family-title);
+}
+
+/* General link styling */
+a {
+  font-weight: 500;
+  color: var(--color-secondary-accent);
+  text-decoration: inherit;
+}
+a:hover {
+  color: #a7afff; /* Lighter version of secondary accent */
+}
+
+/* Base h1 style (can be overridden by utilities, but good for default) */
+h1 {
+  font-family: var(--font-family-title);
+  font-size: 2.8em;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+/* --- Tailwind Custom Components --- */
+@layer components {
+  .btn { /* Base button styles */
+    @apply px-6 py-3 rounded-lg font-semibold text-lg transition-all duration-150 ease-in-out;
+    @apply focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800;
+  }
+
+  .btn-primary { /* Only additive/override styles */
+    @apply bg-yellow-500 text-gray-900 hover:bg-yellow-400 focus:ring-yellow-500;
+    @apply disabled:bg-gray-500 disabled:text-gray-400 disabled:cursor-not-allowed;
+  }
+
+  .btn-secondary { /* Only additive/override styles */
+    @apply bg-indigo-600 text-white hover:bg-indigo-500 focus:ring-indigo-500;
+    @apply disabled:bg-gray-500 disabled:text-gray-400 disabled:cursor-not-allowed;
+  }
+  
+  .btn-danger { /* Only additive/override styles */
+    @apply bg-red-600 text-white hover:bg-red-500 focus:ring-red-500;
+    @apply disabled:bg-gray-500 disabled:text-gray-400 disabled:cursor-not-allowed;
+  }
+
+  .btn-action { /* Only additive/override styles, inherits .btn padding if used together */
+    @apply px-8 py-4 text-xl; 
+    /* Note: This one previously had @apply btn. If used as 'btn btn-action', it will get base btn styles. */
+    /* If used alone, it now only has its own padding/text size. We may need to adjust its usage in TSX or duplicate base styles if it's meant to be standalone. */
+  }
+  
+  .btn-small-circular { /* This is a standalone style, not composed with .btn */
+    @apply w-10 h-10 rounded-full flex items-center justify-center text-xl font-bold transition-all duration-150 ease-in-out;
+    @apply focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800;
+    @apply disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+}

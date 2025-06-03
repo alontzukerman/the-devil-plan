@@ -13,7 +13,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
     children: React.ReactNode;
 }
 
-const getVariantStyles = (variant: ButtonVariant): string => {
+const getVariantClasses = (variant: ButtonVariant): string => {
     const variants = {
         primary: 'bg-primary-500 text-neutral-900 hover:bg-primary-400 focus:ring-primary-500',
         secondary: 'bg-secondary-600 text-white hover:bg-secondary-500 focus:ring-secondary-500',
@@ -23,7 +23,7 @@ const getVariantStyles = (variant: ButtonVariant): string => {
     return variants[variant];
 };
 
-const getSizeStyles = (size: ButtonSize): string => {
+const getSizeClasses = (size: ButtonSize): string => {
     const sizes = {
         sm: 'px-3 py-1.5 text-sm',
         md: 'px-6 py-3 text-base',
@@ -45,37 +45,35 @@ export const Button: React.FC<ButtonProps> = ({
 }) => {
     const { theme } = useTheme();
 
-    const baseStyles = [
+    const buttonClasses = clsx(
+        // Base styles
         'inline-flex items-center justify-center',
         'font-semibold rounded-lg',
         'transition-all duration-150 ease-in-out',
         'focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-neutral-800',
         'disabled:bg-neutral-500 disabled:text-neutral-400 disabled:cursor-not-allowed',
-    ];
 
-    const variantStyles = getVariantStyles(variant);
-    const sizeStyles = getSizeStyles(size);
-    const widthStyles = fullWidth ? 'w-full' : '';
+        // Variant styles
+        getVariantClasses(variant),
+
+        // Size styles
+        getSizeClasses(size),
+
+        // Width styles
+        {
+            'w-full': fullWidth,
+        },
+
+        className
+    );
 
     const isDisabled = disabled || loading;
 
     return (
         <button
-            className={clsx(
-                baseStyles,
-                variantStyles,
-                sizeStyles,
-                widthStyles,
-                className
-            )}
+            className={buttonClasses}
             disabled={isDisabled}
             {...props}
-            style={{
-                // Use CSS custom properties from theme
-                backgroundColor: variant === 'primary' ? `var(--color-primary-500)` : undefined,
-                color: variant === 'primary' ? `var(--color-neutral-900)` : undefined,
-                ...props.style,
-            }}
         >
             {loading && (
                 <svg

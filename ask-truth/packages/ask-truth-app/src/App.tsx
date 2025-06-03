@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from '@ask-truth/ui';
+import '@ask-truth/ui/dist/index.css';
 import StartScreen from './screens/StartScreen';
 import CardSelectionScreen from './screens/CardSelectionScreen';
 import BiddingScreen from './screens/BiddingScreen';

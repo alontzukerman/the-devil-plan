@@ -1,3 +1,6 @@
+// Styles
+import './styles.css';
+
 // Types
 export type * from './types/theme';
 

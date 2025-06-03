@@ -59,69 +59,53 @@ export const Card: React.FC<CardProps> = ({
     const cardText = getCardDisplayString(card);
     const isRed = card.suit === 'H' || card.suit === 'D';
 
-    const baseStyles = [
-        'p-2 border rounded-md shadow-sm',
-        'flex items-center justify-center',
-        'aspect-[2.5/3.5] min-w-[50px]',
-        'text-lg font-semibold',
-        'transition-all duration-150 ease-in-out',
-    ];
-
-    const interactionStyles = onClick && !isDisabled
-        ? ['cursor-pointer', 'hover:shadow-lg']
-        : isDisabled
-            ? ['cursor-not-allowed']
-            : [];
-
     const handleClick = () => {
         if (onClick && !isDisabled) {
             onClick(card);
         }
     };
 
-    // Get colors from theme
-    const getCardColors = () => {
-        if (isDisabled) {
-            return {
-                backgroundColor: theme.colors.neutral[200],
-                borderColor: theme.colors.neutral[300],
-                textColor: theme.colors.neutral[400],
-            };
-        }
+    const cardClasses = clsx(
+        // Base styles
+        'p-2 border rounded-md shadow-sm',
+        'flex items-center justify-center',
+        'aspect-[2.5/3.5] min-w-[50px]',
+        'text-lg font-semibold',
+        'transition-all duration-150 ease-in-out',
 
-        if (isSelected) {
-            return {
-                backgroundColor: theme.colors.secondary[100],
-                borderColor: theme.colors.secondary[500],
-                textColor: isRed ? '#dc2626' : '#1f2937', // red-600 for red cards, gray-800 for black cards
-            };
-        }
+        // Background and border colors based on state
+        {
+            // Selected state
+            'bg-secondary-100 border-secondary-500 ring-2 ring-secondary-500 hover:shadow-md': isSelected,
 
-        return {
-            backgroundColor: '#ffffff',
-            borderColor: theme.colors.neutral[300],
-            textColor: isRed ? '#dc2626' : '#1f2937', // red-600 for red cards, gray-800 for black cards
-        };
-    };
+            // Disabled state  
+            'bg-neutral-200 border-neutral-300 text-neutral-400': isDisabled,
 
-    const colors = getCardColors();
+            // Normal state
+            'bg-white border-neutral-300 hover:border-secondary-500 hover:shadow-lg': !isSelected && !isDisabled,
+        },
+
+        // Text colors for suits
+        {
+            'card-red': isRed && !isDisabled,
+            'card-black': !isRed && !isDisabled,
+        },
+
+        // Interaction styles
+        {
+            'cursor-pointer': onClick && !isDisabled,
+            'cursor-not-allowed': isDisabled,
+        },
+
+        className
+    );
 
     return (
         <div
-            className={clsx(
-                baseStyles,
-                interactionStyles,
-                className
-            )}
+            className={cardClasses}
             onClick={handleClick}
             aria-disabled={isDisabled}
             title={cardText}
-            style={{
-                backgroundColor: colors.backgroundColor,
-                borderColor: colors.borderColor,
-                color: colors.textColor,
-                boxShadow: isSelected ? `0 0 0 2px ${theme.colors.secondary[500]}` : undefined,
-            }}
         >
             <span className="select-none">{cardText}</span>
         </div>

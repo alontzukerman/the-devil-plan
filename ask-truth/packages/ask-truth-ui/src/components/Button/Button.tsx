@@ -15,17 +15,24 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 
 const getVariantClasses = (variant: ButtonVariant): string => {
     const variants = {
-        primary: 'bg-primary-500 text-neutral-900 hover:bg-primary-400 focus:ring-primary-500',
-        secondary: 'bg-secondary-600 text-white hover:bg-secondary-500 focus:ring-secondary-500',
-        danger: 'bg-red-600 text-white hover:bg-red-500 focus:ring-red-500',
-        ghost: 'bg-transparent text-neutral-300 hover:bg-neutral-700 focus:ring-neutral-500 border border-neutral-600',
+        // Primary - Beautiful Emerald Gradient
+        primary: 'bg-gradient-to-br from-primary-500 via-primary-600 to-primary-700 text-white border border-primary-700/30 shadow-lg shadow-primary-600/30 hover:from-primary-400 hover:via-primary-500 hover:to-primary-600 hover:shadow-xl hover:shadow-primary-500/40 hover:scale-105 focus:ring-primary-500 active:scale-[0.98] font-semibold transition-all duration-300 ease-out',
+
+        // Secondary - Rich Copper Gradient
+        secondary: 'bg-gradient-to-br from-secondary-500 via-secondary-600 to-secondary-700 text-white border border-secondary-700/30 shadow-lg shadow-secondary-600/30 hover:from-secondary-400 hover:via-secondary-500 hover:to-secondary-600 hover:shadow-xl hover:shadow-secondary-500/40 hover:scale-105 focus:ring-secondary-500 active:scale-[0.98] transition-all duration-300 ease-out',
+
+        // Danger - Classic Red
+        danger: 'bg-gradient-to-br from-red-500 via-red-600 to-red-700 text-white border border-red-700/30 shadow-lg shadow-red-600/30 hover:from-red-400 hover:via-red-500 hover:to-red-600 hover:shadow-xl hover:shadow-red-500/40 hover:scale-105 focus:ring-red-500 active:scale-[0.98] transition-all duration-300 ease-out',
+
+        // Ghost - Subtle with warm neutrals
+        ghost: 'bg-transparent text-neutral-600 hover:bg-neutral-100 hover:text-neutral-800 focus:ring-neutral-400 border-2 border-neutral-300 hover:border-neutral-400 hover:shadow-md active:scale-[0.98] transition-all duration-200 ease-out',
     };
     return variants[variant];
 };
 
 const getSizeClasses = (size: ButtonSize): string => {
     const sizes = {
-        sm: 'px-3 py-1.5 text-sm',
+        sm: 'px-4 py-2 text-sm',
         md: 'px-6 py-3 text-base',
         lg: 'px-8 py-4 text-lg',
         xl: 'px-10 py-5 text-xl',
@@ -46,12 +53,12 @@ export const Button: React.FC<ButtonProps> = ({
     const { theme } = useTheme();
 
     const buttonClasses = clsx(
-        // Base styles
-        'inline-flex items-center justify-center',
-        'font-semibold rounded-lg',
-        'transition-all duration-150 ease-in-out',
-        'focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-neutral-800',
-        'disabled:bg-neutral-500 disabled:text-neutral-400 disabled:cursor-not-allowed',
+        // Base styles - Enhanced with better styling
+        'relative inline-flex items-center justify-center',
+        'font-semibold rounded-xl',
+        'transform-gpu',
+        'focus:outline-none focus:ring-4 focus:ring-offset-2 focus:ring-offset-neutral-900',
+        'disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none',
 
         // Variant styles
         getVariantClasses(variant),
@@ -62,6 +69,11 @@ export const Button: React.FC<ButtonProps> = ({
         // Width styles
         {
             'w-full': fullWidth,
+        },
+
+        // Loading state
+        {
+            'cursor-wait': loading,
         },
 
         className

@@ -3,54 +3,54 @@ import type { Theme } from '../types/theme';
 export const classicTheme: Theme = {
     name: 'classic',
     colors: {
-        // Primary - Yellow/Amber (current game primary)
+        // Primary - Rich Emerald (sophisticated green)
         primary: {
-            50: '#fffbeb',
-            100: '#fef3c7',
-            200: '#fde68a',
-            300: '#fcd34d',
-            400: '#fbbf24', // Current yellow-400
-            500: '#f59e0b', // Primary yellow
-            600: '#d97706',
-            700: '#b45309',
-            800: '#92400e',
-            900: '#78350f',
-            950: '#451a03',
+            50: '#ecfdf5',
+            100: '#d1fae5',
+            200: '#a7f3d0',
+            300: '#6ee7b7',
+            400: '#34d399',
+            500: '#10b981', // Primary emerald
+            600: '#059669', // Rich emerald
+            700: '#047857',
+            800: '#065f46',
+            900: '#064e3b',
+            950: '#022c22',
         },
-        // Secondary - Indigo/Purple (current game accent)
+        // Secondary - Warm Copper (rich orange-brown)
         secondary: {
-            50: '#eef2ff',
-            100: '#e0e7ff',
-            200: '#c7d2fe',
-            300: '#a5b4fc', // Current indigo-300
-            400: '#818cf8',
-            500: '#6366f1',
-            600: '#4f46e5',
-            700: '#4338ca',
-            800: '#3730a3',
-            900: '#312e81',
-            950: '#1e1b4b',
+            50: '#fff7ed',
+            100: '#ffedd5',
+            200: '#fed7aa',
+            300: '#fdba74',
+            400: '#fb923c',
+            500: '#f97316',
+            600: '#ea580c', // Warm copper
+            700: '#c2410c',
+            800: '#9a3412',
+            900: '#7c2d12',
+            950: '#431407',
         },
-        // Neutral - Gray scale (current game backgrounds)
+        // Neutral - Warm grays (sophisticated stone palette)
         neutral: {
-            50: '#f9fafb',
-            100: '#f3f4f6',
-            200: '#e5e7eb', // Current gray-200
-            300: '#d1d5db', // Current gray-300
-            400: '#9ca3af', // Current gray-400
-            500: '#6b7280',
-            600: '#4b5563',
-            700: '#374151', // Current gray-700
-            800: '#1f2937', // Current gray-800 (slate-800)
-            900: '#111827',
-            950: '#030712',
+            50: '#fafaf9',
+            100: '#f5f5f4',
+            200: '#e7e5e4',
+            300: '#d6d3d1',
+            400: '#a8a29e',
+            500: '#78716c',
+            600: '#57534e',
+            700: '#44403c',
+            800: '#292524',
+            900: '#1c1917',
+            950: '#0c0a09',
         },
-        // Semantic colors
+        // Semantic colors - Updated to complement the new palette
         semantic: {
-            success: '#10b981', // Current green-500
-            error: '#ef4444',   // Current red-500
-            warning: '#f59e0b', // Same as primary-500
-            info: '#3b82f6',    // Current blue-500
+            success: '#059669', // Emerald-600 (matches primary)
+            error: '#dc2626',   // Red-600 (classic red)
+            warning: '#ea580c', // Copper-600 (matches secondary)
+            info: '#0891b2',    // Cyan-600 (complements palette)
         },
     },
     spacing: {

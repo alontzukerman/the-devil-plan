@@ -66,26 +66,27 @@ export const Card: React.FC<CardProps> = ({
     };
 
     const cardClasses = clsx(
-        // Base styles
-        'p-2 border rounded-md shadow-sm',
+        // Base styles - Enhanced with better shadows and styling
+        'relative p-3 border-2 rounded-xl shadow-md',
         'flex items-center justify-center',
         'aspect-[2.5/3.5] min-w-[50px]',
-        'text-lg font-semibold',
-        'transition-all duration-150 ease-in-out',
+        'text-lg font-bold',
+        'transition-all duration-200 ease-out',
+        'transform-gpu',
 
         // Background and border colors based on state
         {
-            // Selected state
-            'bg-secondary-100 border-secondary-500 ring-2 ring-secondary-500 hover:shadow-md': isSelected,
+            // Selected state - More prominent with glow effect
+            'bg-secondary-50 border-secondary-400 ring-4 ring-secondary-200 shadow-lg shadow-secondary-200/50 scale-105': isSelected,
 
-            // Disabled state  
-            'bg-neutral-200 border-neutral-300 text-neutral-400': isDisabled,
+            // Disabled state - Softer appearance
+            'bg-neutral-100 border-neutral-300 text-neutral-400 opacity-60': isDisabled,
 
-            // Normal state
-            'bg-white border-neutral-300 hover:border-secondary-500 hover:shadow-lg': !isSelected && !isDisabled,
+            // Normal state - Clean white with subtle effects
+            'bg-white border-neutral-200 hover:border-secondary-300 hover:shadow-lg hover:shadow-neutral-200/50 hover:-translate-y-0.5': !isSelected && !isDisabled,
         },
 
-        // Text colors for suits
+        // Text colors for suits - Enhanced contrast
         {
             'card-red': isRed && !isDisabled,
             'card-black': !isRed && !isDisabled,
@@ -93,7 +94,7 @@ export const Card: React.FC<CardProps> = ({
 
         // Interaction styles
         {
-            'cursor-pointer': onClick && !isDisabled,
+            'cursor-pointer hover:scale-105': onClick && !isDisabled,
             'cursor-not-allowed': isDisabled,
         },
 
@@ -107,7 +108,14 @@ export const Card: React.FC<CardProps> = ({
             aria-disabled={isDisabled}
             title={cardText}
         >
-            <span className="select-none">{cardText}</span>
+            <span className="select-none text-center leading-none">
+                {cardText}
+            </span>
+
+            {/* Subtle inner glow for selected cards */}
+            {isSelected && (
+                <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-secondary-100/30 to-transparent pointer-events-none" />
+            )}
         </div>
     );
 }; 

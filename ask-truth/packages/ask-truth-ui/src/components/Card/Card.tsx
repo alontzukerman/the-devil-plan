@@ -73,56 +73,54 @@ export const Card: React.FC<CardProps> = ({
             ? ['cursor-not-allowed']
             : [];
 
-    const stateStyles = isSelected
-        ? [
-            'bg-secondary-100 border-secondary-500',
-            'ring-2 ring-secondary-500',
-            'hover:shadow-md',
-        ]
-        : isDisabled
-            ? [
-                'bg-neutral-200 text-neutral-400',
-                'border-neutral-300',
-            ]
-            : [
-                'bg-white border-neutral-300',
-                'hover:border-secondary-500',
-            ];
-
-    const textColorStyles = isDisabled
-        ? 'text-neutral-400'
-        : isRed
-            ? 'text-red-600'
-            : 'text-neutral-900';
-
     const handleClick = () => {
         if (onClick && !isDisabled) {
             onClick(card);
         }
     };
 
+    // Get colors from theme
+    const getCardColors = () => {
+        if (isDisabled) {
+            return {
+                backgroundColor: theme.colors.neutral[200],
+                borderColor: theme.colors.neutral[300],
+                textColor: theme.colors.neutral[400],
+            };
+        }
+
+        if (isSelected) {
+            return {
+                backgroundColor: theme.colors.secondary[100],
+                borderColor: theme.colors.secondary[500],
+                textColor: isRed ? '#dc2626' : '#1f2937', // red-600 for red cards, gray-800 for black cards
+            };
+        }
+
+        return {
+            backgroundColor: '#ffffff',
+            borderColor: theme.colors.neutral[300],
+            textColor: isRed ? '#dc2626' : '#1f2937', // red-600 for red cards, gray-800 for black cards
+        };
+    };
+
+    const colors = getCardColors();
+
     return (
         <div
             className={clsx(
                 baseStyles,
                 interactionStyles,
-                stateStyles,
-                textColorStyles,
                 className
             )}
             onClick={handleClick}
             aria-disabled={isDisabled}
             title={cardText}
             style={{
-                // Use CSS custom properties from theme
-                backgroundColor: isSelected
-                    ? `var(--color-secondary-100)`
-                    : isDisabled
-                        ? `var(--color-neutral-200)`
-                        : 'white',
-                borderColor: isSelected
-                    ? `var(--color-secondary-500)`
-                    : `var(--color-neutral-300)`,
+                backgroundColor: colors.backgroundColor,
+                borderColor: colors.borderColor,
+                color: colors.textColor,
+                boxShadow: isSelected ? `0 0 0 2px ${theme.colors.secondary[500]}` : undefined,
             }}
         >
             <span className="select-none">{cardText}</span>

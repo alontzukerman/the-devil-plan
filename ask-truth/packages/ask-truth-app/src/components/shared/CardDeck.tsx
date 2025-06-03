@@ -1,7 +1,7 @@
 import React from 'react';
 import CardComponent from '../Card';
 import { SUITS } from '../../utils/cardUtils';
-import type { Card } from '../../utils/cardUtils';
+import type { CardType as Card } from '@ask-truth/ui';
 
 export interface CardDeckProps {
     deck: Card[];

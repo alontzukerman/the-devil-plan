@@ -1,6 +1,6 @@
 import React from 'react';
 import { CardDeck as SharedCardDeck } from '../shared/CardDeck';
-import type { Card } from '../../utils/cardUtils';
+import type { CardType as Card } from '@ask-truth/ui';
 
 interface CardDeckProps {
     deck: Card[];

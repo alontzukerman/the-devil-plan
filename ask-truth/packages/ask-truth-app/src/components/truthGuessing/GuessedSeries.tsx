@@ -1,6 +1,6 @@
 import React from 'react';
 import CardComponent from '../Card';
-import type { Card } from '../../utils/cardUtils';
+import type { CardType as Card } from '@ask-truth/ui';
 
 interface GuessedSeriesProps {
     guessedSeries: Card[];

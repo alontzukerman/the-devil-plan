@@ -6,6 +6,7 @@ export { classicTheme } from './themes/classic';
 
 // Utilities
 export * from './utils/theme';
+export * from './utils/card/cardUtils';
 
 // Components
 export { ThemeProvider, useTheme } from './components/ThemeProvider';

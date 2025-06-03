@@ -66,24 +66,26 @@ export const Card: React.FC<CardProps> = ({
     };
 
     const cardClasses = clsx(
-        // Base styles - Enhanced with better shadows and styling
-        'relative p-3 border-2 rounded-xl shadow-md',
+        // Base styles - NARROW width, EXTRA TALL height
+        'relative p-1 border-2 rounded-md shadow-md',
         'flex items-center justify-center',
-        'aspect-[2.5/3.5] min-w-[50px]',
-        'text-lg font-bold',
+        'w-5 h-16', // NARROW width (20px) and EXTRA TALL height (64px)
+        'text-xs font-bold',
         'transition-all duration-200 ease-out',
         'transform-gpu',
+        'flex-shrink-0', // Prevent shrinking in flex containers
+        'mx-0.5', // Add horizontal margin to prevent overlap
 
         // Background and border colors based on state
         {
             // Selected state - More prominent with glow effect
-            'bg-secondary-50 border-secondary-400 ring-4 ring-secondary-200 shadow-lg shadow-secondary-200/50 scale-105': isSelected,
+            'bg-secondary-50 border-secondary-400 ring-1 ring-secondary-200 shadow-lg shadow-secondary-200/50 scale-110 z-10': isSelected,
 
             // Disabled state - Softer appearance
             'bg-neutral-100 border-neutral-300 text-neutral-400 opacity-60': isDisabled,
 
             // Normal state - Clean white with subtle effects
-            'bg-white border-neutral-200 hover:border-secondary-300 hover:shadow-lg hover:shadow-neutral-200/50 hover:-translate-y-0.5': !isSelected && !isDisabled,
+            'bg-white border-neutral-200 hover:border-secondary-300 hover:shadow-lg hover:shadow-neutral-200/50 hover:-translate-y-1 hover:z-10': !isSelected && !isDisabled,
         },
 
         // Text colors for suits - Enhanced contrast
@@ -108,13 +110,13 @@ export const Card: React.FC<CardProps> = ({
             aria-disabled={isDisabled}
             title={cardText}
         >
-            <span className="select-none text-center leading-none">
+            <span className="select-none text-center leading-tight">
                 {cardText}
             </span>
 
             {/* Subtle inner glow for selected cards */}
             {isSelected && (
-                <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-secondary-100/30 to-transparent pointer-events-none" />
+                <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-secondary-100/30 to-transparent pointer-events-none" />
             )}
         </div>
     );

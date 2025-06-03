@@ -10,7 +10,6 @@ export interface CardDeckProps {
     isDisabled?: boolean;
     title?: string;
     layout?: 'suits' | 'flat';
-    cardSize?: 'small' | 'medium' | 'large';
     maxSelection?: number;
     showAsGrid?: boolean;
 }
@@ -22,18 +21,9 @@ export const CardDeck: React.FC<CardDeckProps> = ({
     isDisabled = false,
     title = 'Available Cards',
     layout = 'suits',
-    cardSize = 'medium',
     maxSelection,
     showAsGrid = true
 }) => {
-    const getCardSizeClass = () => {
-        switch (cardSize) {
-            case 'small': return 'w-12 sm:w-14';
-            case 'large': return 'w-20 sm:w-24';
-            default: return 'w-16 sm:w-20';
-        }
-    };
-
     const getGridClass = () => {
         if (!showAsGrid) return 'flex flex-wrap gap-1 sm:gap-2';
         return 'grid grid-cols-7 sm:grid-cols-10 md:grid-cols-13 gap-1 sm:gap-2';
@@ -61,7 +51,6 @@ export const CardDeck: React.FC<CardDeckProps> = ({
                     onClick={onSelectCard}
                     isSelected={selected}
                     isDisabled={disabled}
-                    className={getCardSizeClass()}
                 />
             </div>
         );

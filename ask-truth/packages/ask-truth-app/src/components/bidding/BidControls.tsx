@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from '@ask-truth/ui';
 
 interface BidControlsProps {
     currentBidAmount: number;
@@ -23,23 +24,27 @@ export const BidControls: React.FC<BidControlsProps> = ({
 
     return (
         <div className="flex items-center justify-center space-x-4 mb-4">
-            <button
+            <Button
                 onClick={onDecreaseBid}
                 disabled={currentBidAmount === 0 || !isTimerActive || hasBidBeenSubmitted}
-                className="btn bg-red-600 hover:bg-red-700 px-6 py-3 text-xl disabled:opacity-50"
+                variant="danger"
+                size="lg"
+                className="disabled:opacity-50"
             >
                 -
-            </button>
+            </Button>
             <span className="text-3xl font-bold text-amber-400 w-16 text-center">
                 {currentBidAmount}
             </span>
-            <button
+            <Button
                 onClick={onIncreaseBid}
                 disabled={currentBidAmount >= myCoins || !isTimerActive || hasBidBeenSubmitted}
-                className="btn bg-green-600 hover:bg-green-700 px-6 py-3 text-xl disabled:opacity-50"
+                variant="primary"
+                size="lg"
+                className="bg-green-600 hover:bg-green-700 disabled:opacity-50"
             >
                 +
-            </button>
+            </Button>
         </div>
     );
 }; 

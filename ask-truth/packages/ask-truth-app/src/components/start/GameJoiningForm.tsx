@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from '@ask-truth/ui';
 
 interface GameJoiningFormProps {
     playerName: string;
@@ -35,13 +36,14 @@ export const GameJoiningForm: React.FC<GameJoiningFormProps> = ({
                     placeholder="E.g., XXXXXX"
                     className="p-3 bg-gray-800 border border-gray-600 text-gray-100 rounded-md shadow-sm focus:ring-yellow-500 focus:border-yellow-500 w-full mb-2"
                 />
-                <button
+                <Button
                     onClick={onJoinGame}
                     disabled={!playerName.trim() || !gameIdToJoin.trim() || !isConnected}
-                    className="btn btn-secondary w-full"
+                    variant="secondary"
+                    fullWidth
                 >
                     Join Game
-                </button>
+                </Button>
             </div>
         </>
     );

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from '@ask-truth/ui';
 import type { QuestionSubmissionControlsProps } from '../../utils/types/questionSelection.types';
 
 export const QuestionSubmissionControls: React.FC<QuestionSubmissionControlsProps> = ({
@@ -16,12 +17,16 @@ export const QuestionSubmissionControls: React.FC<QuestionSubmissionControlsProp
     const isDisabled = !canSubmit || isSubmitting || showAnswer;
 
     return (
-        <button
+        <Button
             onClick={onSubmit}
             disabled={isDisabled}
-            className="btn btn-primary w-full py-3 text-lg disabled:opacity-70 mt-4"
+            variant="primary"
+            fullWidth
+            loading={isSubmitting}
+            size="lg"
+            className="mt-4 disabled:opacity-70"
         >
             {getButtonText()}
-        </button>
+        </Button>
     );
 }; 

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Button } from '@ask-truth/ui';
 import type { LoadingState } from '../../utils/types/truthGuessing.types';
 
 interface LoadingStatesProps {
@@ -59,12 +60,13 @@ export const LoadingStates: React.FC<LoadingStatesProps> = ({
                     (You are the target. Your series is being guessed!)
                 </p>
                 <p className="italic text-gray-300">{statusMessage}</p>
-                <button
+                <Button
                     onClick={() => navigate(`/game/${gameId}/bidding`)}
-                    className="btn btn-secondary mt-8"
+                    variant="secondary"
+                    className="mt-8"
                 >
                     Return to Game (if stuck)
-                </button>
+                </Button>
             </div>
         );
     }

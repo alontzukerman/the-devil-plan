@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from '@ask-truth/ui';
 
 interface GuessControlsProps {
     canConfirm: boolean;
@@ -15,20 +16,20 @@ export const GuessControls: React.FC<GuessControlsProps> = ({
 }) => {
     return (
         <div className="my-4 flex space-x-4">
-            <button
+            <Button
                 onClick={onConfirm}
                 disabled={!canConfirm}
-                className="btn btn-primary"
+                variant="primary"
             >
                 Confirm Guess
-            </button>
-            <button
+            </Button>
+            <Button
                 onClick={onReset}
                 disabled={!canReset}
-                className="btn btn-danger"
+                variant="danger"
             >
                 Reset Guess
-            </button>
+            </Button>
         </div>
     );
 }; 

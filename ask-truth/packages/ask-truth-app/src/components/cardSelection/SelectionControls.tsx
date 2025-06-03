@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from '@ask-truth/ui';
 
 interface SelectionControlsProps {
     canConfirm: boolean;
@@ -15,20 +16,20 @@ export const SelectionControls: React.FC<SelectionControlsProps> = ({
 }) => {
     return (
         <div className="mt-8 flex space-x-6">
-            <button
-                className="btn btn-primary"
+            <Button
+                variant="primary"
                 disabled={!canConfirm}
                 onClick={onConfirm}
             >
                 Confirm Selection
-            </button>
-            <button
-                className="btn btn-danger"
+            </Button>
+            <Button
+                variant="danger"
                 onClick={onReset}
                 disabled={!canReset}
             >
                 Reset
-            </button>
+            </Button>
         </div>
     );
 }; 

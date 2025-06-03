@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from '@ask-truth/ui';
 
 interface ActionChoicePanelProps {
     canChooseAction: boolean;
@@ -19,18 +20,22 @@ export const ActionChoicePanel: React.FC<ActionChoicePanelProps> = ({
                 Choose Your Action
             </h3>
             <div className="flex flex-col sm:flex-row justify-around items-center space-y-3 sm:space-y-0 sm:space-x-3">
-                <button
+                <Button
                     onClick={() => onChooseAction('Ask')}
-                    className="btn btn-primary py-3 px-8 text-xl w-full sm:w-auto"
+                    variant="primary"
+                    size="xl"
+                    className="w-full sm:w-auto"
                 >
                     Ask a Question
-                </button>
-                <button
+                </Button>
+                <Button
                     onClick={() => onChooseAction('Truth')}
-                    className="btn btn-secondary py-3 px-8 text-xl w-full sm:w-auto"
+                    variant="secondary"
+                    size="xl"
+                    className="w-full sm:w-auto"
                 >
                     Guess Their Truth
-                </button>
+                </Button>
             </div>
         </div>
     );

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from '@ask-truth/ui';
 
 interface GameCreationFormProps {
     playerName: string;
@@ -28,13 +29,15 @@ export const GameCreationForm: React.FC<GameCreationFormProps> = ({
                     className="p-3 bg-gray-800 border border-gray-600 text-gray-100 rounded-md shadow-sm focus:ring-yellow-500 focus:border-yellow-500 w-full"
                 />
             </div>
-            <button
+            <Button
                 onClick={onCreateGame}
                 disabled={!playerName.trim() || !isConnected}
-                className="btn btn-primary w-full mb-4"
+                variant="primary"
+                fullWidth
+                className="mb-4"
             >
                 Create New Game
-            </button>
+            </Button>
         </>
     );
 }; 

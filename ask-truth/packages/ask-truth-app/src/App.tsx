@@ -1,4 +1,3 @@
-import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import StartScreen from './screens/StartScreen';
 import CardSelectionScreen from './screens/CardSelectionScreen';

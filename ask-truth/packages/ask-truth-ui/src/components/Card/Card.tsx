@@ -66,11 +66,11 @@ export const Card: React.FC<CardProps> = ({
     };
 
     const cardClasses = clsx(
-        // Base styles - NARROW width, EXTRA TALL height
+        // Base styles - NARROW width, EXTRA TALL height like real playing cards
         'relative p-1 border-2 rounded-md shadow-md',
         'flex items-center justify-center',
-        'w-5 h-16', // NARROW width (20px) and EXTRA TALL height (64px)
-        'text-xs font-bold',
+        'w-8 h-24', // Playing card proportions (32px wide, 96px tall)
+        'text-sm font-bold',
         'transition-all duration-200 ease-out',
         'transform-gpu',
         'flex-shrink-0', // Prevent shrinking in flex containers

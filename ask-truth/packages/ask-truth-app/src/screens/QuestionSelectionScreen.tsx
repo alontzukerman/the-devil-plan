@@ -11,6 +11,7 @@ import { SelectedQuestionInput } from '../components/questionSelection/SelectedQ
 import { ErrorDisplay } from '../components/questionSelection/ErrorDisplay';
 import { QuestionSubmissionControls } from '../components/questionSelection/QuestionSubmissionControls';
 import { AnswerDisplay } from '../components/questionSelection/AnswerDisplay';
+import { GameLayout, Panel, Stack } from '@ask-truth/ui';
 import type { QuestionSelectionState } from '../utils/types/questionSelection.types';
 
 export const QuestionSelectionScreen: React.FC = () => {
@@ -53,35 +54,37 @@ export const QuestionSelectionScreen: React.FC = () => {
 
     // Main question selection UI
     return (
-        <div className="min-h-screen bg-slate-800 text-white flex flex-col items-center p-6 pt-12">
-            <div className="w-full max-w-3xl bg-slate-700 p-8 rounded-lg shadow-xl">
-                <QuestionSelectionHeader />
+        <GameLayout backgroundVariant="game" className="pt-12">
+            <Panel variant="game">
+                <Stack spacing="lg">
+                    <QuestionSelectionHeader />
 
-                <QuestionsList
-                    questions={PREDEFINED_QUESTIONS}
-                    selectedQuestionId={state.selectedQuestionId}
-                    onSelectQuestion={handleSelectQuestion}
-                    isDisabled={state.isSubmitting || !!state.showAnswer}
-                />
-
-                {state.selectedQuestionFull && (
-                    <SelectedQuestionInput
-                        question={state.selectedQuestionFull}
-                        currentParams={state.inputParams}
-                        onParamsChange={handleParamsChange}
-                        isSubmitting={state.isSubmitting}
+                    <QuestionsList
+                        questions={PREDEFINED_QUESTIONS}
+                        selectedQuestionId={state.selectedQuestionId}
+                        onSelectQuestion={handleSelectQuestion}
+                        isDisabled={state.isSubmitting || !!state.showAnswer}
                     />
-                )}
 
-                <ErrorDisplay error={state.submissionError} />
+                    {state.selectedQuestionFull && (
+                        <SelectedQuestionInput
+                            question={state.selectedQuestionFull}
+                            currentParams={state.inputParams}
+                            onParamsChange={handleParamsChange}
+                            isSubmitting={state.isSubmitting}
+                        />
+                    )}
 
-                <QuestionSubmissionControls
-                    canSubmit={canSubmit}
-                    isSubmitting={state.isSubmitting}
-                    showAnswer={!!state.showAnswer}
-                    onSubmit={handleSubmitQuestion}
-                />
-            </div>
-        </div>
+                    <ErrorDisplay error={state.submissionError} />
+
+                    <QuestionSubmissionControls
+                        canSubmit={canSubmit}
+                        isSubmitting={state.isSubmitting}
+                        showAnswer={!!state.showAnswer}
+                        onSubmit={handleSubmitQuestion}
+                    />
+                </Stack>
+            </Panel>
+        </GameLayout>
     );
 }; 

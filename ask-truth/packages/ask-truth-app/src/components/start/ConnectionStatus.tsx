@@ -10,7 +10,7 @@ export const ConnectionStatus: React.FC<ConnectionStatusProps> = ({ isConnected 
     }
 
     return (
-        <div className="mb-4 p-3 bg-yellow-600 bg-opacity-50 border-l-4 border-yellow-400 text-yellow-100 rounded-md">
+        <div className="mb-4 p-3 bg-warning bg-opacity-50 border-l-4 border-secondary-400 text-secondary-100 rounded-md">
             <p>Connecting to server...</p>
         </div>
     );

@@ -1,4 +1,5 @@
 import React from 'react';
+import { GameStatus } from '@ask-truth/ui';
 
 interface SelectionStatusProps {
     hasConfirmedSelection: boolean;
@@ -13,17 +14,26 @@ export const SelectionStatus: React.FC<SelectionStatusProps> = ({
 }) => {
     if (hasConfirmedSelection && !opponentHasConfirmed) {
         return (
-            <p className="mt-6 text-xl text-purple-300 italic">
-                Waiting for {opponentPlayerName || 'opponent'} to confirm their selection...
-            </p>
+            <div className="mt-6">
+                <GameStatus
+                    message={`Waiting for ${opponentPlayerName || 'opponent'} to confirm their selection...`}
+                    type="waiting"
+                    showSpinner={true}
+                    size="lg"
+                />
+            </div>
         );
     }
 
     if (opponentHasConfirmed && hasConfirmedSelection) {
         return (
-            <p className="mt-6 text-xl text-green-300 font-semibold">
-                {opponentPlayerName || 'Opponent'} has confirmed! Both players ready!
-            </p>
+            <div className="mt-6">
+                <GameStatus
+                    message={`${opponentPlayerName || 'Opponent'} has confirmed! Both players ready!`}
+                    type="success"
+                    size="lg"
+                />
+            </div>
         );
     }
 

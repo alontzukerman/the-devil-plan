@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from '@ask-truth/ui';
+import { Button, FormField } from '@ask-truth/ui';
 
 interface GameJoiningFormProps {
     playerName: string;
@@ -19,22 +19,25 @@ export const GameJoiningForm: React.FC<GameJoiningFormProps> = ({
     return (
         <>
             <div className="relative flex py-5 items-center">
-                <div className="flex-grow border-t border-gray-500"></div>
-                <span className="flex-shrink mx-4 text-gray-400">OR</span>
-                <div className="flex-grow border-t border-gray-500"></div>
+                <div className="flex-grow border-t border-neutral-500"></div>
+                <span className="flex-shrink mx-4 text-neutral-400">OR</span>
+                <div className="flex-grow border-t border-neutral-500"></div>
             </div>
 
             <div className="mb-4">
-                <label htmlFor="gameIdToJoin" className="block text-lg font-medium text-gray-200 mb-2">
-                    Enter Game ID to Join:
-                </label>
-                <input
-                    type="text"
-                    id="gameIdToJoin"
-                    value={gameIdToJoin}
-                    onChange={(e) => onGameIdChange(e.target.value.toUpperCase())}
-                    placeholder="E.g., XXXXXX"
-                    className="p-3 bg-gray-800 border border-gray-600 text-gray-100 rounded-md shadow-sm focus:ring-yellow-500 focus:border-yellow-500 w-full mb-2"
+                <FormField
+                    label="Enter Game ID to Join:"
+                    labelSize="lg"
+                    fullWidth
+                    className="mb-2"
+                    inputProps={{
+                        type: "text",
+                        value: gameIdToJoin,
+                        onChange: (e) => onGameIdChange(e.target.value.toUpperCase()),
+                        placeholder: "E.g., XXXXXX",
+                        variant: "game",
+                        size: "lg"
+                    }}
                 />
                 <Button
                     onClick={onJoinGame}

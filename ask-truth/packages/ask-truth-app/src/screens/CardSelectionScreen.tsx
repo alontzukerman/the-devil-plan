@@ -11,6 +11,7 @@ import { SeriesCounter } from '../components/cardSelection/SeriesCounter';
 import { CardDeck } from '../components/cardSelection/CardDeck';
 import { SelectionControls } from '../components/cardSelection/SelectionControls';
 import { SelectionStatus } from '../components/cardSelection/SelectionStatus';
+import { GameLayout, Stack } from '@ask-truth/ui';
 import type {
     CardSelectionLocationState,
     CardSelectionState,
@@ -74,43 +75,45 @@ const CardSelectionScreen: React.FC = () => {
     } = useSeriesValidation({ socket, gameId, state, setState });
 
     return (
-        <div className="flex flex-col items-center p-4 pb-8 min-h-screen">
-            <CardSelectionHeader
-                gameId={gameId}
-                currentPlayerName={state.currentPlayerName}
-                statusMessage={state.statusMessage}
-            />
+        <GameLayout backgroundVariant="default" className="pb-8">
+            <Stack spacing="lg" align="center">
+                <CardSelectionHeader
+                    gameId={gameId}
+                    currentPlayerName={state.currentPlayerName}
+                    statusMessage={state.statusMessage}
+                />
 
-            <SelectedSeries
-                selectedSeries={state.selectedSeries}
-                onDeselectCard={handleDeselectFromSeries}
-            />
+                <SelectedSeries
+                    selectedSeries={state.selectedSeries}
+                    onDeselectCard={handleDeselectFromSeries}
+                />
 
-            <SeriesCounter
-                selectedCount={state.selectedSeries.length}
-                maxCount={8}
-            />
+                <SeriesCounter
+                    selectedCount={state.selectedSeries.length}
+                    maxCount={8}
+                />
 
-            <CardDeck
-                deck={deck}
-                selectedSeries={state.selectedSeries}
-                hasConfirmedSelection={state.hasConfirmedSelection}
-                onSelectCard={handleSelectFromDeck}
-            />
+                <CardDeck
+                    deck={deck}
+                    selectedSeries={state.selectedSeries}
+                    hasConfirmedSelection={state.hasConfirmedSelection}
+                    onSelectCard={handleSelectFromDeck}
+                />
 
-            <SelectionControls
-                canConfirm={canConfirm}
-                canReset={canReset}
-                onConfirm={handleConfirmSelection}
-                onReset={handleResetSelection}
-            />
+                <SelectionControls
+                    canConfirm={canConfirm}
+                    canReset={canReset}
+                    onConfirm={handleConfirmSelection}
+                    onReset={handleResetSelection}
+                />
 
-            <SelectionStatus
-                hasConfirmedSelection={state.hasConfirmedSelection}
-                opponentHasConfirmed={state.opponentHasConfirmed}
-                opponentPlayerName={state.opponentPlayerName}
-            />
-        </div>
+                <SelectionStatus
+                    hasConfirmedSelection={state.hasConfirmedSelection}
+                    opponentHasConfirmed={state.opponentHasConfirmed}
+                    opponentPlayerName={state.opponentPlayerName}
+                />
+            </Stack>
+        </GameLayout>
     );
 };
 

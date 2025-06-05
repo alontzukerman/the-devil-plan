@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { useGameOver } from '../hooks/gameOver/useGameOver';
 import { GameOverHeader } from '../components/gameOver/GameOverHeader';
 import { GameOverActions } from '../components/gameOver/GameOverActions';
+import { GameLayout, Stack } from '@ask-truth/ui';
 import type { GameOverLocationState } from '../utils/types/gameOver.types';
 
 const GameOverScreen: React.FC = () => {
@@ -12,10 +13,12 @@ const GameOverScreen: React.FC = () => {
     const { handlePlayAgain } = useGameOver();
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen p-4">
-            <GameOverHeader winnerName={winnerName} />
-            <GameOverActions onPlayAgain={handlePlayAgain} />
-        </div>
+        <GameLayout backgroundVariant="default">
+            <Stack spacing="lg" align="center" justify="center">
+                <GameOverHeader winnerName={winnerName} />
+                <GameOverActions onPlayAgain={handlePlayAgain} />
+            </Stack>
+        </GameLayout>
     );
 };
 

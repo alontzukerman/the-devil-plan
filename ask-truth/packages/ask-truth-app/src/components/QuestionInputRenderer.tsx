@@ -33,8 +33,8 @@ const QuestionInputRenderer: React.FC<QuestionInputRendererProps> = ({ question,
         case 'CARD_POSITIONS':
             return (
                 <div className="mt-2">
-                    <p className="text-sm text-gray-300 mb-3">
-                        Select exactly <span className="font-semibold text-amber-300">{question.numberOfInputs}</span> card position(s) from the opponent's hand (1-8):
+                    <p className="text-sm text-neutral-300 mb-3">
+                        Select exactly <span className="font-semibold text-secondary-300">{question.numberOfInputs}</span> card position(s) from the opponent's hand (1-8):
                     </p>
                     <div className="flex flex-wrap gap-2 justify-center">
                         {Array.from({ length: 8 }).map((_, index) => (
@@ -42,18 +42,18 @@ const QuestionInputRenderer: React.FC<QuestionInputRendererProps> = ({ question,
                                 key={`pos-input-${index}`}
                                 onClick={() => handlePositionSelect(index)}
                                 className={`w-12 h-12 border-2 rounded flex items-center justify-center font-mono transition-colors 
-                                    ${(currentParams.positions || []).includes(index)
-                                        ? 'bg-amber-500 border-amber-400 text-slate-800 font-semibold'
-                                        : 'bg-slate-500 border-slate-400 hover:bg-slate-400 text-white'}
-                                    ${isSubmitting ? 'cursor-not-allowed opacity-70' : ''}
-                                `}
+                                ${(currentParams.positions || []).includes(index)
+                                        ? 'bg-secondary-500 border-secondary-400 text-neutral-800 font-semibold'
+                                        : 'bg-neutral-500 border-neutral-400 hover:bg-neutral-400 text-white'}
+                                ${isSubmitting ? 'cursor-not-allowed opacity-70' : ''}
+                            `}
                                 disabled={isSubmitting}
                             >
                                 {index + 1} {/* Display 1-8 */}
                             </button>
                         ))}
                     </div>
-                    <p className="text-xs text-gray-400 mt-3 text-center">
+                    <p className="text-xs text-neutral-400 mt-3 text-center">
                         Selected: {(currentParams.positions || []).map((p: number) => p + 1).join(', ') || 'None'}
                     </p>
                 </div>
@@ -63,7 +63,7 @@ const QuestionInputRenderer: React.FC<QuestionInputRendererProps> = ({ question,
         // return <div>Render shape selection UI here</div>;
         default:
             return (
-                <p className="text-sm text-yellow-500 italic">
+                <p className="text-sm text-warning italic">
                     Input UI for "{question.requiresInput}" is not implemented yet.
                 </p>
             );

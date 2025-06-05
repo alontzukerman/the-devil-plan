@@ -12,9 +12,9 @@ export const SelectedSeries: React.FC<SelectedSeriesProps> = ({
     onDeselectCard
 }) => {
     return (
-        <div className="my-4 p-3 bg-gray-700 bg-opacity-50 shadow-lg rounded-lg w-full max-w-3xl min-h-[8rem] flex items-center justify-center border-2 border-indigo-500">
+        <div className="my-4 p-3 bg-neutral-700 bg-opacity-50 shadow-lg rounded-lg w-full max-w-3xl min-h-[8rem] flex items-center justify-center border-2 border-primary-500">
             {selectedSeries.length === 0 ? (
-                <p className="text-gray-400 italic">
+                <p className="text-neutral-400 italic">
                     Your 8-card series will appear here in selection order.
                 </p>
             ) : (

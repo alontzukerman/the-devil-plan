@@ -33,7 +33,7 @@ export const BiddingTimer: React.FC<BiddingTimerProps> = ({
     };
 
     return (
-        <h2 className="text-2xl font-semibold text-center text-sky-300 mb-4">
+        <h2 className="text-2xl font-semibold text-center text-info mb-4">
             {getTitle()}
         </h2>
     );

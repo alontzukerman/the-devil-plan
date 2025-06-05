@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useSocket } from '../contexts/SocketContext';
 import { useStartScreenSocket } from '../hooks/start/useStartScreenSocket';
-import { GameHeader } from '../components/shared/GameHeader';
 import { ConnectionStatus } from '../components/start/ConnectionStatus';
 import { GameCreationForm } from '../components/start/GameCreationForm';
 import { GameJoiningForm } from '../components/start/GameJoiningForm';
 import { GameStatusDisplay } from '../components/start/GameStatusDisplay';
 import { ErrorMessage } from '../components/shared/ErrorMessage';
+import { GameLayout, Panel, Stack } from '@ask-truth/ui';
 import type { StartScreenState } from '../utils/types/startScreen.types';
 
 const StartScreen: React.FC = () => {
@@ -63,44 +63,43 @@ const StartScreen: React.FC = () => {
         !state.errorMessage;
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen p-4">
-            <GameHeader
-                title="Ask or Truth"
-                className="font-title text-5xl text-yellow-400 mb-12 text-center"
-            />
+        <GameLayout title="Ask or Truth" backgroundVariant="dark">
+            <Stack spacing="lg" align="center">
+                <ConnectionStatus isConnected={isConnected} />
 
-            <ConnectionStatus isConnected={isConnected} />
+                {showInitialForms && (
+                    <Panel variant="dark" className="w-full max-w-md">
+                        <Stack spacing="lg">
+                            <GameCreationForm
+                                playerName={state.playerName}
+                                isConnected={isConnected}
+                                onPlayerNameChange={handlePlayerNameChange}
+                                onCreateGame={handleCreateGame}
+                            />
 
-            {showInitialForms && (
-                <div className="bg-gray-700 bg-opacity-50 p-8 rounded-lg shadow-xl w-full max-w-md backdrop-blur-sm">
-                    <GameCreationForm
-                        playerName={state.playerName}
-                        isConnected={isConnected}
-                        onPlayerNameChange={handlePlayerNameChange}
-                        onCreateGame={handleCreateGame}
+                            <GameJoiningForm
+                                playerName={state.playerName}
+                                gameIdToJoin={state.gameIdToJoin}
+                                isConnected={isConnected}
+                                onGameIdChange={handleGameIdChange}
+                                onJoinGame={handleJoinGame}
+                            />
+                        </Stack>
+                    </Panel>
+                )}
+
+                {showGameStatus && (
+                    <GameStatusDisplay
+                        createdGameId={state.createdGameId}
+                        isWaitingForOpponent={state.isWaitingForOpponent}
+                        gamePlayers={state.gamePlayers}
+                        currentSocketId={socket?.id}
                     />
+                )}
 
-                    <GameJoiningForm
-                        playerName={state.playerName}
-                        gameIdToJoin={state.gameIdToJoin}
-                        isConnected={isConnected}
-                        onGameIdChange={handleGameIdChange}
-                        onJoinGame={handleJoinGame}
-                    />
-                </div>
-            )}
-
-            {showGameStatus && (
-                <GameStatusDisplay
-                    createdGameId={state.createdGameId}
-                    isWaitingForOpponent={state.isWaitingForOpponent}
-                    gamePlayers={state.gamePlayers}
-                    currentSocketId={socket?.id}
-                />
-            )}
-
-            <ErrorMessage message={state.errorMessage} />
-        </div>
+                <ErrorMessage message={state.errorMessage} />
+            </Stack>
+        </GameLayout>
     );
 };
 

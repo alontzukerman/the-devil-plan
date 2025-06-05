@@ -1,6 +1,6 @@
 import React from 'react';
-import { BiddingTimer } from './BiddingTimer';
 import { BidControls } from './BidControls';
+import { Timer, GameStatus } from '@ask-truth/ui';
 import type { BidOutcome } from '../../utils/types/bidding.types';
 
 interface BiddingStatusProps {
@@ -32,15 +32,36 @@ export const BiddingStatus: React.FC<BiddingStatusProps> = ({
     onIncreaseBid,
     onDecreaseBid
 }) => {
+    const getTimerTitle = () => {
+        if (isTimerActive) {
+            return `Time Left: ${timeLeft}s`;
+        } else if (isOpponentChoosingQuestion) {
+            return `${opponentPlayerName || 'Opponent'} is Choosing a Question`;
+        } else if (bidOutcome && !canChooseAction) {
+            return 'Bid Resolved';
+        } else if (canChooseAction) {
+            return 'Your Action';
+        } else {
+            return 'Place Your Bid';
+        }
+    };
+
+    const getStatusType = () => {
+        if (isOpponentChoosingQuestion) return 'waiting';
+        if (bidOutcome && !canChooseAction) return 'success';
+        if (canChooseAction) return 'info';
+        return 'info';
+    };
+
     return (
-        <div className="bg-slate-600 p-6 rounded-lg mb-6">
-            <BiddingTimer
+        <div className="bg-neutral-600 p-6 rounded-lg mb-6">
+            <Timer
                 timeLeft={timeLeft}
-                isTimerActive={isTimerActive}
-                isOpponentChoosingQuestion={isOpponentChoosingQuestion}
-                opponentPlayerName={opponentPlayerName}
-                bidOutcome={bidOutcome}
-                canChooseAction={canChooseAction}
+                isActive={isTimerActive}
+                title={getTimerTitle()}
+                size="lg"
+                showProgress={isTimerActive}
+                totalTime={10}
             />
 
             <BidControls
@@ -52,9 +73,12 @@ export const BiddingStatus: React.FC<BiddingStatusProps> = ({
                 onDecreaseBid={onDecreaseBid}
             />
 
-            <p className="text-center text-sky-200 min-h-[2em]">
-                {biddingStatusMessage}
-            </p>
+            <GameStatus
+                message={biddingStatusMessage}
+                type={getStatusType()}
+                showSpinner={isOpponentChoosingQuestion}
+                size="md"
+            />
         </div>
     );
 }; 

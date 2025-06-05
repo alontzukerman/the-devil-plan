@@ -3,10 +3,9 @@ import { useParams, useLocation } from 'react-router-dom';
 import { SocketContext } from '../contexts/SocketContext';
 import { useBiddingSocket } from '../hooks/bidding/useBiddingSocket';
 import { useBiddingTimer } from '../hooks/bidding/useBiddingTimer';
-import { GameHeader } from '../components/shared/GameHeader';
-import { PlayerStatus } from '../components/bidding/PlayerStatus';
 import { BiddingStatus } from '../components/bidding/BiddingStatus';
 import { ActionChoicePanel } from '../components/bidding/ActionChoicePanel';
+import { GameLayout, Panel, Stack, PlayerInfo } from '@ask-truth/ui';
 import type { BiddingState } from '../utils/types/bidding.types';
 
 interface BiddingLocationState {
@@ -114,74 +113,81 @@ const BiddingScreen: React.FC = () => {
     // Loading state
     if (!socketContext || !socket) {
         return (
-            <div className="p-4 bg-gray-800 text-white min-h-screen flex flex-col items-center justify-center tritium-font">
-                <GameHeader title="Connecting to Bidding..." />
-                <p>{state.biddingStatusMessage}</p>
-            </div>
+            <GameLayout title="Connecting to Bidding..." backgroundVariant="game">
+                <p className="tritium-font">{state.biddingStatusMessage}</p>
+            </GameLayout>
         );
     }
 
     return (
-        <div className="min-h-screen bg-slate-800 text-white flex flex-col items-center justify-center p-4">
-            <div className="w-full max-w-3xl bg-slate-700 p-6 md:p-8 rounded-lg shadow-xl">
-                <GameHeader title="Bidding Phase" />
-
-                <PlayerStatus
-                    myPlayerName={state.myPlayerName}
-                    opponentPlayerName={state.opponentPlayerName}
-                    myCoins={state.myCoins}
-                    opponentHasFewCoins={state.opponentHasFewCoins}
-                />
-
-                <BiddingStatus
-                    timeLeft={state.timeLeft}
-                    isTimerActive={state.isTimerActive}
-                    isOpponentChoosingQuestion={state.isOpponentChoosingQuestion}
-                    opponentPlayerName={state.opponentPlayerName}
-                    bidOutcome={state.bidOutcome}
-                    canChooseAction={state.canChooseAction}
-                    biddingStatusMessage={state.biddingStatusMessage}
-                    currentBidAmount={state.currentBidAmount}
-                    myCoins={state.myCoins}
-                    hasBidBeenSubmitted={state.hasBidBeenSubmitted}
-                    onIncreaseBid={handleIncreaseBid}
-                    onDecreaseBid={handleDecreaseBid}
-                />
-
-                <ActionChoicePanel
-                    canChooseAction={state.canChooseAction}
-                    onChooseAction={handleChooseAction}
-                />
-
-                {/* Question History - keeping original implementation for now */}
-                {state.askedQuestions.length > 0 && (
-                    <div className="mt-6 p-4 bg-slate-600 rounded-lg">
-                        <h3 className="text-xl font-semibold text-amber-300 mb-3">Question History</h3>
-                        <div className="space-y-2 max-h-40 overflow-y-auto">
-                            {state.askedQuestions.map((q, index) => {
-                                const askerName = q.askedByPlayerId === state.myPlayerId ? "You" : state.opponentPlayerName || "Opponent";
-                                const targetName = q.answeredByPlayerId === state.myPlayerId ? "you" : state.opponentPlayerName || "Opponent";
-                                let answerText = String(q.answer);
-                                if (typeof q.answer === 'boolean') {
-                                    answerText = q.answer ? 'TRUE' : 'FALSE';
-                                }
-                                let paramsString = "";
-                                if (q.params?.positions) {
-                                    paramsString = ` (Selected positions: ${q.params.positions.map((p: number) => p + 1).join(', ')})`;
-                                }
-                                return (
-                                    <div key={index} className="text-sm text-sky-100 bg-slate-500 p-2 rounded">
-                                        <strong>Q from {askerName} to {targetName}:</strong> "{q.questionText}"{paramsString}
-                                        <br />
-                                        <strong>Answer:</strong> {answerText}
-                                    </div>
-                                );
-                            })}
-                        </div>
+        <GameLayout title="Bidding Phase" backgroundVariant="game">
+            <Panel variant="game">
+                <Stack spacing="lg">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <PlayerInfo
+                            playerName={state.myPlayerName}
+                            coins={state.myCoins}
+                            isCurrentPlayer={true}
+                            size="md"
+                        />
+                        <PlayerInfo
+                            playerName={state.opponentPlayerName}
+                            hasFewCoins={state.opponentHasFewCoins}
+                            isCurrentPlayer={false}
+                            size="md"
+                        />
                     </div>
-                )}
-            </div>
-        </div>
+
+                    <BiddingStatus
+                        timeLeft={state.timeLeft}
+                        isTimerActive={state.isTimerActive}
+                        isOpponentChoosingQuestion={state.isOpponentChoosingQuestion}
+                        opponentPlayerName={state.opponentPlayerName}
+                        bidOutcome={state.bidOutcome}
+                        canChooseAction={state.canChooseAction}
+                        biddingStatusMessage={state.biddingStatusMessage}
+                        currentBidAmount={state.currentBidAmount}
+                        myCoins={state.myCoins}
+                        hasBidBeenSubmitted={state.hasBidBeenSubmitted}
+                        onIncreaseBid={handleIncreaseBid}
+                        onDecreaseBid={handleDecreaseBid}
+                    />
+
+                    <ActionChoicePanel
+                        canChooseAction={state.canChooseAction}
+                        onChooseAction={handleChooseAction}
+                    />
+
+                    {/* Question History - keeping original implementation for now */}
+                    {state.askedQuestions.length > 0 && (
+                        <div className="p-4 bg-neutral-600 rounded-lg">
+                            <h3 className="text-xl font-semibold text-secondary-300 mb-3">Question History</h3>
+                            <div className="space-y-2 max-h-40 overflow-y-auto">
+                                {state.askedQuestions.map((q, index) => {
+                                    const askerName = q.askedByPlayerId === state.myPlayerId ? "You" : state.opponentPlayerName || "Opponent";
+                                    const targetName = q.answeredByPlayerId === state.myPlayerId ? "you" : state.opponentPlayerName || "Opponent";
+                                    let answerText = String(q.answer);
+                                    if (typeof q.answer === 'boolean') {
+                                        answerText = q.answer ? 'TRUE' : 'FALSE';
+                                    }
+                                    let paramsString = "";
+                                    if (q.params?.positions) {
+                                        paramsString = ` (Selected positions: ${q.params.positions.map((p: number) => p + 1).join(', ')})`;
+                                    }
+                                    return (
+                                        <div key={index} className="text-sm text-info bg-neutral-500 p-2 rounded">
+                                            <strong>Q from {askerName} to {targetName}:</strong> "{q.questionText}"{paramsString}
+                                            <br />
+                                            <strong>Answer:</strong> {answerText}
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    )}
+                </Stack>
+            </Panel>
+        </GameLayout>
     );
 };
 

@@ -7,7 +7,7 @@ interface GameHeaderProps {
 
 export const GameHeader: React.FC<GameHeaderProps> = ({
     title,
-    className = "text-4xl font-cinzel-decorative text-center text-amber-400 mb-6"
+    className = "text-4xl font-title text-center text-secondary-400 mb-6"
 }) => {
     return (
         <h1 className={className}>

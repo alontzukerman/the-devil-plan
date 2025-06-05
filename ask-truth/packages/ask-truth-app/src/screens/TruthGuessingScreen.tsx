@@ -10,6 +10,7 @@ import { GuessedSeries } from '../components/truthGuessing/GuessedSeries';
 import { GuessControls } from '../components/truthGuessing/GuessControls';
 import { LoadingStates } from '../components/truthGuessing/LoadingStates';
 import { CardDeck } from '../components/shared/CardDeck';
+import { GameLayout, Stack } from '@ask-truth/ui';
 import type {
     TruthGuessingLocationState,
     TruthGuessingState,
@@ -110,35 +111,37 @@ const TruthGuessingScreen: React.FC = () => {
 
     // Main Guessing UI (My Turn)
     return (
-        <div className="flex flex-col items-center min-h-screen p-4 pt-6 sm:pt-8">
-            <TruthGuessingHeader
-                targetPlayerName={state.targetPlayerName}
-                statusMessage={state.statusMessage}
-            />
+        <GameLayout backgroundVariant="default" className="pt-6 sm:pt-8">
+            <Stack spacing="lg" align="center">
+                <TruthGuessingHeader
+                    targetPlayerName={state.targetPlayerName}
+                    statusMessage={state.statusMessage}
+                />
 
-            <GuessedSeries
-                guessedSeries={state.guessedSeries}
-                isGuessConfirmed={state.isGuessConfirmed}
-                onDeselectCard={handleDeselectFromGuessedSeries}
-            />
+                <GuessedSeries
+                    guessedSeries={state.guessedSeries}
+                    isGuessConfirmed={state.isGuessConfirmed}
+                    onDeselectCard={handleDeselectFromGuessedSeries}
+                />
 
-            <GuessControls
-                canConfirm={canConfirm}
-                canReset={canReset}
-                onConfirm={handleConfirmGuess}
-                onReset={handleResetGuess}
-            />
+                <GuessControls
+                    canConfirm={canConfirm}
+                    canReset={canReset}
+                    onConfirm={handleConfirmGuess}
+                    onReset={handleResetGuess}
+                />
 
-            <CardDeck
-                deck={deck}
-                selectedCards={state.guessedSeries}
-                onSelectCard={handleSelectFromDeck}
-                isDisabled={state.isGuessConfirmed}
-                title="Available Cards to Choose From"
-                layout="flat"
-                maxSelection={8}
-            />
-        </div>
+                <CardDeck
+                    deck={deck}
+                    selectedCards={state.guessedSeries}
+                    onSelectCard={handleSelectFromDeck}
+                    isDisabled={state.isGuessConfirmed}
+                    title="Available Cards to Choose From"
+                    layout="flat"
+                    maxSelection={8}
+                />
+            </Stack>
+        </GameLayout>
     );
 };
 

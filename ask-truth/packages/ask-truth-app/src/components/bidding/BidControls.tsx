@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from '@ask-truth/ui';
+import { Button, CoinDisplay } from '@ask-truth/ui';
 
 interface BidControlsProps {
     currentBidAmount: number;
@@ -33,9 +33,12 @@ export const BidControls: React.FC<BidControlsProps> = ({
             >
                 -
             </Button>
-            <span className="text-3xl font-bold text-amber-400 w-16 text-center">
-                {currentBidAmount}
-            </span>
+            <CoinDisplay
+                amount={currentBidAmount}
+                size="lg"
+                label="Bid"
+                className="min-w-[120px]"
+            />
             <Button
                 onClick={onIncreaseBid}
                 disabled={currentBidAmount >= myCoins || !isTimerActive || hasBidBeenSubmitted}

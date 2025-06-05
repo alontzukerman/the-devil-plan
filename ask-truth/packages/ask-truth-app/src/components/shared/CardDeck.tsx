@@ -58,8 +58,8 @@ export const CardDeck: React.FC<CardDeckProps> = ({
 
     if (layout === 'flat') {
         return (
-            <div className="p-4 bg-gray-700 bg-opacity-30 backdrop-blur-sm shadow-xl rounded-lg w-full max-w-5xl mt-4">
-                <h2 className="text-2xl font-semibold text-center mb-4 text-gray-200">
+            <div className="p-4 bg-neutral-700 bg-opacity-30 backdrop-blur-sm shadow-xl rounded-lg w-full max-w-5xl mt-4">
+                <h2 className="text-2xl font-semibold text-center mb-4 text-neutral-200">
                     {title}
                 </h2>
                 <div className={getGridClass()}>
@@ -71,8 +71,8 @@ export const CardDeck: React.FC<CardDeckProps> = ({
 
     // Suits layout (default)
     return (
-        <div className="p-4 bg-gray-700 bg-opacity-30 shadow-xl rounded-lg w-full max-w-5xl mt-4">
-            <h2 className="text-2xl font-semibold text-center mb-4 text-gray-200">
+        <div className="p-4 bg-neutral-700 bg-opacity-30 shadow-xl rounded-lg w-full max-w-5xl mt-4">
+            <h2 className="text-2xl font-semibold text-center mb-4 text-neutral-200">
                 {title}
             </h2>
             {SUITS.map(suit => (

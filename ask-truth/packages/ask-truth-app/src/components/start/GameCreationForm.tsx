@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from '@ask-truth/ui';
+import { Button, FormField } from '@ask-truth/ui';
 
 interface GameCreationFormProps {
     playerName: string;
@@ -17,16 +17,18 @@ export const GameCreationForm: React.FC<GameCreationFormProps> = ({
     return (
         <>
             <div className="mb-6">
-                <label htmlFor="playerName" className="block text-lg font-medium text-gray-200 mb-2">
-                    Enter Your Name:
-                </label>
-                <input
-                    type="text"
-                    id="playerName"
-                    value={playerName}
-                    onChange={(e) => onPlayerNameChange(e.target.value)}
-                    placeholder="E.g., Player1"
-                    className="p-3 bg-gray-800 border border-gray-600 text-gray-100 rounded-md shadow-sm focus:ring-yellow-500 focus:border-yellow-500 w-full"
+                <FormField
+                    label="Enter Your Name:"
+                    labelSize="lg"
+                    fullWidth
+                    inputProps={{
+                        type: "text",
+                        value: playerName,
+                        onChange: (e) => onPlayerNameChange(e.target.value),
+                        placeholder: "E.g., Player1",
+                        variant: "game",
+                        size: "lg"
+                    }}
                 />
             </div>
             <Button

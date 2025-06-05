@@ -13,9 +13,9 @@ export const SelectedQuestionInput: React.FC<SelectedQuestionInputProps> = ({
     }
 
     return (
-        <div className="my-6 p-4 bg-slate-600 rounded-lg">
-            <h3 className="text-xl font-semibold text-sky-300 mb-3">
-                Provide Input for: <span className="text-amber-300">{question.text}</span>
+        <div className="my-6 p-4 bg-neutral-600 rounded-lg">
+            <h3 className="text-xl font-semibold text-info mb-3">
+                Provide Input for: <span className="text-secondary-300">{question.text}</span>
             </h3>
             <QuestionInputRenderer
                 question={question}

@@ -19,8 +19,8 @@ const QuestionListItem: React.FC<QuestionListItemProps> = ({ question, onSelect,
         <div
             className={`
                 p-4 border rounded-lg cursor-pointer transition-all duration-150 ease-in-out 
-                ${isSubmitted ? 'bg-gray-600 opacity-50 cursor-not-allowed' : 'hover:bg-slate-600'} 
-                ${isSelected && !isSubmitted ? 'bg-sky-700 border-sky-500 ring-2 ring-sky-400' : 'border-slate-500 bg-slate-700'}
+                ${isSubmitted ? 'bg-neutral-600 opacity-50 cursor-not-allowed' : 'hover:bg-neutral-600'} 
+                ${isSelected && !isSubmitted ? 'bg-info bg-opacity-20 border-info ring-2 ring-info ring-opacity-40' : 'border-neutral-500 bg-neutral-700'}
             `}
             onClick={handleSelect}
             aria-disabled={isSubmitted}
@@ -28,11 +28,11 @@ const QuestionListItem: React.FC<QuestionListItemProps> = ({ question, onSelect,
             tabIndex={isSubmitted ? -1 : 0}
             onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') handleSelect(); }}
         >
-            <h3 className={`text-lg font-semibold ${isSelected && !isSubmitted ? 'text-white' : 'text-sky-300'}`}>{question.text}</h3>
-            <p className={`text-sm ${isSelected && !isSubmitted ? 'text-sky-100' : 'text-slate-400'} mt-1`}>
+            <h3 className={`text-lg font-semibold ${isSelected && !isSubmitted ? 'text-white' : 'text-info'}`}>{question.text}</h3>
+            <p className={`text-sm ${isSelected && !isSubmitted ? 'text-info' : 'text-neutral-400'} mt-1`}>
                 Category: <span className="font-medium">{question.category}</span>
                 {question.requiresInput && question.requiresInput !== 'NONE' && (
-                    <span className="ml-2 pl-2 border-l border-slate-500">
+                    <span className="ml-2 pl-2 border-l border-neutral-500">
                         Requires Input: {question.requiresInput} (x{question.numberOfInputs || 1})
                     </span>
                 )}
